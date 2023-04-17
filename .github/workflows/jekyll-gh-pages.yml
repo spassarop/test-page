@@ -26,12 +26,16 @@ jobs:
   pre-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Gem install
-        run: gem install just-the-docs
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1.146.0
+        with:
+          ruby-version: '3.x'
+      - run: bundle install
 
   # Build job
   build:
     runs-on: ubuntu-latest
+    needs: pre-build
     steps:
       - name: Checkout
         uses: actions/checkout@v3
