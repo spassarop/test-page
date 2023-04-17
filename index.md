@@ -8,4 +8,4 @@ Este contenido se enfoca en un tema clásico y que cada vez menos vulnerado, aun
 
 Se presentarn los diferentes tipos de inyección: clásicas con retorno de datos visibles, por inferencia (ciegas basadas en errores o demoras) y con visibilidad fuera de banda. El propósito es también explicar o referir a cómo **combatir** problemas desde el punto de vista del **desarrollo y configuración**, mencionando algunas herramientas y tecnologías comunes para lograr tanto la detección y explotación como la corrección.
 
-La sección [Ambiente de pruebas](/environment) contiene las indicaciones para construir un ambiente donde poder realizar los ejercicios propuestos. Si esto no es necesario, el contenido comienza en la sección [Introducción](/intro).
+La sección [Ambiente de pruebas](environment.md) contiene las indicaciones para construir un ambiente donde poder realizar los ejercicios propuestos. Si esto no es necesario, el contenido comienza en la sección [Introducción](introduction.md).
