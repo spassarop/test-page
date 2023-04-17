@@ -22,6 +22,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Install theme
+  pre-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gem install
+        run: gem install just-the-docs
+
   # Build job
   build:
     runs-on: ubuntu-latest
