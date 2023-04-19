@@ -17,6 +17,8 @@ Estas son algunas técnicas de detección manual, que implican enviar a la aplic
 - Contenido con sintaxis SQL que resulte en **demoras** controladas (ver el punto de inyecciones ciegas).
 - Contenido diseñado para disparar **interacciones de red** fuera de banda (*out-of-band*) ejecutadas dentro de la consulta SQL y monitorear con un servicio si se recibe tal pedido de interacción. Implica tener infraestructura preparada (ver el punto de inyecciones ciegas).
 
+Si se tiene acceso al código fuente, además de poder revisarlo manualmente, existen herramientas de **análisis estático** que ayudan a identificar potenciales inyecciones y que suelen automatizarse como parte de procesos de integración continua.
+
 ## Puntos de inyección
 
 El escenario clásico de SQLi es en la cláusula `WHERE` de una sentencia `SELECT`, aunque pueden ocurrir en cualquier otra parte y con los otros tipos de sentencias. Las ubicaciones más comunes son:
