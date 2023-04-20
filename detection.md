@@ -27,3 +27,28 @@ El escenario clásico de SQLi es en la cláusula `WHERE` de una sentencia `SELEC
 -  `SELECT`:
    -  en los nombres de tabla o columnas.
    -  en la cláusula `ORDER BY`, en las columnas a ordenar o la dirección (`ASC`/`DESC`).
+
+## Detectar tecnologías
+
+Para explotar con suficiente conocimiento una SQLi se busca aprender sobre la tecnología detrás, el producto de manejador de base de datos o **DBMS** (*Database Management System*), **su versión** y cualquier otra información relevante.
+
+Este conocimiento determina la sintaxis válida para consultas más complejas y **técnicas de bypass** específicas al DBMS.
+
+Suponiendo que se encontró un punto de inyección del que extraer datos con una consulta totalmente controlable, es viable probar obtener una versión con las siguientes sentencias:
+
+| DBMS | Query |
+| ---- | ----- |
+| SQLServer, MySQL | `SELECT @@version` |
+| Oracle | `SELECT version FROM v$instance` |
+|| `SELECT banner FROM v$version` |
+| PostgreSQL | `SELECT version()` |
+
+En ejemplos posteriores se verá como el tipo de DBMS impacta en la sintaxis de las explotaciones.
+
+En ocasiones **la propia estructura de la base de datos** informa sobre el tipo de DBMS. Una consulta como:
+
+```sql
+SELECT * FROM information_schema.tables
+```
+
+Podría revelar nombres de tablas como `pg_catalog.pg_attribute` que corresponden a PostgreSQL.
