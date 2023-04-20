@@ -7,7 +7,7 @@ nav_order: 5
 
 # Inyecciones clásicas con datos visibles
 
-Existen muchas variantes donde afectar en un punto de inyección cambia los resultados, por ejemplo en un nombre de columna o las condiciones de la cláusula `WHERE`. Esto extrae datos no previstos por la aplicación dentro de la tabla de la consulta original.
+Existen muchas variantes donde afectar en un punto de inyección cambia los resultados, por ejemplo en un **nombre de columna o las condiciones** de la cláusula `WHERE`. Esto extrae datos no previstos por la aplicación dentro de la tabla de la consulta original.
 
 Sin embargo, cuando se quiere obtener información en masa y de otras partes de la base de datos hay técnicas efectivas que se adaptan. La predominante se da con ataques de `UNION`.
 
