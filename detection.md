@@ -39,8 +39,7 @@ Suponiendo que se encontró un punto de inyección del que extraer datos con una
 | DBMS | Query |
 | ---- | ----- |
 | SQLServer, MySQL | `SELECT @@version` |
-| Oracle | `SELECT version FROM v$instance` |
-|| `SELECT banner FROM v$version` |
+| Oracle | `SELECT version FROM v$instance` <br> `SELECT banner FROM v$version` |
 | PostgreSQL | `SELECT version()` |
 
 En ejemplos posteriores se verá como el tipo de DBMS impacta en la sintaxis de las explotaciones.
