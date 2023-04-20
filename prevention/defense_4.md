@@ -62,7 +62,8 @@ Esta información es basada en [Oracle Escape character information](http://www.
 La palabra clave `LIKE` permite realizar búsquedas de exploración de texto. En Oracle, el carácter `_` sólo coincide con un carácter, mientras que `%` se utiliza para coincidir con cero o más apariciones de cualquier carácter. Estos caracteres deben escaparse en la cláusula `LIKE`.
 
 Por ejemplo:
-```SQL
+
+```sql
 SELECT name FROM product WHERE category LIKE '%/_%' ESCAPE '/'; 
 SELECT name FROM product WHERE category LIKE '%\%%' ESCAPE '\';
 ```
@@ -101,7 +102,7 @@ Un mecanismo genérico es el escape por codificación de la entrada del usuario 
 
 Por ejemplo, si se quiere buscar un producto que su categoría coincida con `'Garden'`, la aplicación primero debe codificar el texto a su representación hexadecimal y luego insertarlo en el texto de la consulta. Esto se vería así:
 
-```SQL
+```sql
 SELECT * FROM products WHERE hex_encode(category) = '47617264656E'
 ```
 
@@ -109,7 +110,7 @@ Donde `'47617264656E'` es el texto provisto por el usuario, insertado dinámicam
 
 Si un atacante intentara inyectar con la típica comilla simple `'` y un espacio, el SQL final se vería:
 
-```SQL
+```sql
 SELECT * FROM products WHERE hex_encode(category) = '2720...'
 ```
 
