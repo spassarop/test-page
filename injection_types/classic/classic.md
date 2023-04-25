@@ -3,6 +3,7 @@ layout: default
 title: 3. Inyecciones clásicas con datos visibles
 permalink: /injection_types/classic
 nav_order: 5
+has_children: true
 ---
 
 # Inyecciones clásicas con datos visibles
