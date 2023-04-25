@@ -1,0 +1,3 @@
+@media (min-width: 66.5rem) { .side-bar { width: calc((100% - 1064px) / 2 + 361px); min-width: 361px; } }
+@media (min-width: 66.5rem) { .main { margin-left: Max(361px, calc((100% - 1064px) / 2 + 361px)); } }
+@media (min-width: 66.5rem) { .site-nav, .site-header, .site-footer { width: 361px; } }

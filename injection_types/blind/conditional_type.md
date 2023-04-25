@@ -80,7 +80,7 @@ ASCII ya facilita. Pero aún así en el peor de los casos **si se itera secuenci
 
 Si se toma una letra, luego se obtiene un número, y finalmente un *string* binario, la consulta **pasa a ser si cada uno de los 8 dígitos es 0 o 1**. Como son dos valores, preguntar si es `0` por ejemplo ya es suficiente, si la consulta da verdadero es `0`, sino es `1`. Por lo tanto **con 8 consultas fijas** se puede adivinar el caracter con total certeza. En general esto va a reducir la cantidad total de consultas, un ataque acelerado.
 
-Obtener el binario de un número varía entre los DBMS, noe s una sintaxis única. En MySQL es con la función `BIN()`, en PostgreSQL con el *cast* `::bit(8)`, por poner algunos ejemplos. Aplicado a los ejemplos anteriores, con el siguiente fragmento SQL se obtiene el binario del ASCII para la primera letra de la contraseña de John:
+Obtener el binario de un número varía entre los DBMS, no es una sintaxis única. En MySQL es con la función `BIN()`, en PostgreSQL con el *cast* `::bit(8)`, por poner algunos ejemplos. Aplicado a los ejemplos anteriores, con el siguiente fragmento SQL se obtiene el binario del ASCII para la primera letra de la contraseña de John:
 
 ```sql
 BIN(ASCII(SUBSTRING((SELECT Password FROM Users WHERE Username = 'Jhon'), 1, 1)))
