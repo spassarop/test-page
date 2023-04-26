@@ -8,4 +8,3 @@ grand_parent: 4. Inyecciones ciegas
 ---
 
 # Ejercicio práctico de inyección clásica
-

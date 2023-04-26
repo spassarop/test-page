@@ -54,7 +54,7 @@ Si la consulta es falsa, no deberíamos apreciar un cambio (mensaje de bienvenid
 
 ## Optimizaciones
 
-Si bien el procedimiento anterior funciona, requiere probar **con todos los catacteres imprimibles** hasta dar con el indicado. Programar el ataque implica tener la lista de caracteres escrita en una lista, que suele ser engorroso.
+Si bien el procedimiento anterior funciona, requiere probar **con todos los catacteres imprimibles** hasta dar con el indicado. Programar el ataque implica tener la lista de caracteres escrita en una lista, que suele ser engorroso. Las optimizaciones que se plantean a continuación aplican para todos los tipos de inyecciones que requieren adivinar caracteres.
 
 ### ASCII
 
