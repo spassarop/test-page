@@ -13,4 +13,6 @@ Un WAF (*Web Application Firewall*) es una herramienta de seguridad que **filtra
 
 Esta protección es una barrera y hay otras herramientas de detección de intrusiones que pueden sumar. Es válido y recomendable su uso si el escenario y los recursos lo permiten, pero **NO ES UNA DEFENSA PRIMARIA**, es **complementaria**. Los problemas raíz de la aplicación no se solucionan con un WAF y continuamente se hacen públicas **técnicas de bypass** para WAF de distintas tecnologías y proveedores.
 
-Para información inicial sobre técnicas de bypass de WAF, ver [SQL Injection Bypassing WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF).
+Para información inicial sobre técnicas de bypass de WAF: 
+- [SQL Injection Bypassing WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF).
+- [HackTricks - SQL Injection](https://book.hacktricks.xyz/pentesting-web/sql-injection#waf-bypass).

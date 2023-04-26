@@ -86,4 +86,8 @@ Obtener el binario de un número varía entre los DBMS, no es una sintaxis únic
 BIN(ASCII(SUBSTRING((SELECT Password FROM Users WHERE Username = 'Jhon'), 1, 1)))
 ```
 
-Si fuera la letra `'s'`, el resultado sería `01110011`. Con la ayuda de `SUBSTRING` se puede extraer cada número, de a una consulta a la vez, y preguntar si es `0` o `1`.
+Si fuera la letra `'s'`, el resultado sería `01110011`. Con la ayuda de `SUBSTRING` se puede extraer cada número, de a una consulta a la vez, y preguntar si es `'0'` o `'1'`.
+
+Para más información y variantes:
+- [ExploitDB - Faster Blind MySQL Injection Using Bit Shifting](https://www.exploit-db.com/papers/17073).
+- [Ender's Blogs - Blind MySQL Injection Using Bit Shifting](https://enderspub.kubertu.com/blind-mysql-injection-using-bit-shifting).
