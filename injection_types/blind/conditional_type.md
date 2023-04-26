@@ -28,8 +28,8 @@ SELECT TrackingId FROM TrackedUsers WHERE TrackingId = 'u5YD3PapBcR4lN3e7Tj4'
 Enviando estos valores en `TrackingId` en dos consultas separadas:
 
 ```
-…xyz' AND '1'='1 
-…xyz' AND '1'='2
+…Tj4' AND '1'='1 
+…Tj4' AND '1'='2
 ```
 
 En la primera, si se usa un `TrackingId` válido al inicio, se debería observar el cambio en la aplicación ya que **la consulta es verdadera**. Mientras que la segunda no retorna ningún dato **por forzar que sea falsa la condición completa**, por ende no se apreciaría el mensaje de bienvenida. 
