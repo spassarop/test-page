@@ -13,7 +13,7 @@ Una SQLi ciega **fuera de banda** (*out-of-band*, *OOB*) implica enviar la infor
 
 En otras palabras, hay que obligar al DBMS no solo a generar una respuesta, sino también a abrir un canal alternativo de comunicación.
 
-![Out of band diagram](/assets/oob.png)
+![Out of band diagram](/test-page/assets/oob.png)
 
 Para ejemplificar un caso de ataque se analiza un escenario con *Microsoft SQL Server* y el canal alternativo será por medio del **protocolo DNS**. Usualmente este método es efectivo ya que muchas redes permiten salida libre de consultas DNS, debido a **su importancia en el funcionamiento de los sistemas** de producción. El método para construir la consulta se apoya en la [SQL injection cheat sheet de PortSwigger](https://portswigger.net/web-security/sql-injection/cheat-sheet).
 

@@ -74,7 +74,7 @@ Aquí se abusa de la sintaxis de SQL, aplicando luego de `Garden` una comilla si
 SELECT * FROM products WHERE category = 'Garden'
 ```
 
-Esta es la base de la que derivan todos los tipos de inyección, que varían según la **posición** del punto de inyección, **validaciones** aplicadas, la **tecnología** del motor de base de datos y demás factores. Los métodos de prevención se describen en la sección [Cómo prevenir las SQLi](/prevention).
+Esta es la base de la que derivan todos los tipos de inyección, que varían según la **posición** del punto de inyección, **validaciones** aplicadas, la **tecnología** del motor de base de datos y demás factores. Los métodos de prevención se describen en la sección [Cómo prevenir las SQLi](/test-page/prevention).
 
 **Nota**: Los comentarios de SQL varían según la tecnología, estas son opciones:
 

@@ -11,7 +11,7 @@ has_children: true
 
 La detección se complica. La aplicación no se comporta de manera diferente agregando condiciones extra que se esperaría que puedan terminar en una consulta SQL. En esta situación, es posible **inducir a la aplicación a devolver respuestas condicionales activando errores SQL condicionalmente**, dependiendo de una condición inyectada. Esto implica modificar la consulta para que **cause un error en la base de datos** si la condición es verdadera, pero no si la condición es falsa (o al revés). Un error del DBMS no manejado por la aplicación causará alguna diferencia en la respuesta (como un mensaje de error), lo que permite inferir la veracidad de la condición inyectada.
 
-Con el mismo ejemplo de consulta que en [4.1 Con respuestas condicionales](/injection_types/blind/conditional_type), se envían estos dos *payloads* de inyección: 
+Con el mismo ejemplo de consulta que en [4.1 Con respuestas condicionales](/test-page/injection_types/blind/conditional_type), se envían estos dos *payloads* de inyección: 
 
 ```  
 ...Tj4' AND (SELECT CASE WHEN (1=2) THEN 1/0 ELSE 'a' END)='a 

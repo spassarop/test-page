@@ -20,7 +20,7 @@ Las técnicas para activar una demora **son muy específicas para el tipo de bas
 '; IF (1=1) WAITFOR DELAY '0:0:10'-- 
 ```
 
-En este caso la primera entrada no provoca un retaso al ser falsa la condición, y la segunda condición provoca un retraso de 10 segundos. Partiendo de esta consulta base podemos recuperar datos como ya se explicó en [4.2 Basadas en error](/injection_types/blind/error_based_type), probando un caracter a la vez (`{delay}` debe ser sustituido por los segundos de demora):
+En este caso la primera entrada no provoca un retaso al ser falsa la condición, y la segunda condición provoca un retraso de 10 segundos. Partiendo de esta consulta base podemos recuperar datos como ya se explicó en [4.2 Basadas en error](/test-page/injection_types/blind/error_based_type), probando un caracter a la vez (`{delay}` debe ser sustituido por los segundos de demora):
 
 ```
 '; IF (SELECT COUNT(Username) FROM Users 
@@ -28,7 +28,7 @@ En este caso la primera entrada no provoca un retaso al ser falsa la condición,
         AND SUBSTRING(Password, 1, 1) = 'm') = 1 WAITFOR DELAY '0:0:{delay}'--
 ```
 
-Respecto a optimizar las demoras, además de prueba y error o heurísticas, es de gran utilidad la sección de optimizaciones en [4.1 Con respuestas condicionales](/injection_types/blind/conditional_type/#optimizaciones), dado que apunta a reducir la cantidad necesaria de pedidos HTTP por caracter a adivinar.
+Respecto a optimizar las demoras, además de prueba y error o heurísticas, es de gran utilidad la sección de optimizaciones en [4.1 Con respuestas condicionales](/test-page/injection_types/blind/conditional_type/#optimizaciones), dado que apunta a reducir la cantidad necesaria de pedidos HTTP por caracter a adivinar.
 
 Sintaxis para demoras en algunos otros DBMS:
 
