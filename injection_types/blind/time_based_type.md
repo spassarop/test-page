@@ -28,7 +28,7 @@ En este caso la primera entrada no provoca un retaso al ser falsa la condición,
         AND SUBSTRING(Password, 1, 1) = 'm') = 1 WAITFOR DELAY '0:0:{delay}'--
 ```
 
-Respecto a optimizar las demoras, además de prueba y error o heurísticas, es de gran utilidad la sección de optimizaciones en [4.1 Con respuestas condicionales](/test-page/injection_types/blind/conditional_type/#optimizaciones), dado que apunta a reducir la cantidad necesaria de pedidos HTTP por caracter a adivinar.
+Respecto a optimizar las demoras, además de prueba y error o heurísticas, es de gran utilidad la sección de optimizaciones en [4.1 Con respuestas condicionales](/test-page/injection_types/blind/conditional_type#optimizaciones), dado que apunta a reducir la cantidad necesaria de pedidos HTTP por caracter a adivinar.
 
 Sintaxis para demoras en algunos otros DBMS:
 
