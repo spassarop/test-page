@@ -41,7 +41,7 @@ La sintaxis no siempre va a ser tan directa de aplicar y la interpretación de a
 
 En una inyección ciega, extraer contenido por deducciones y errores es parecido a decirle al oído del ciego cómo se ve el resultado. Pero mejor es hacerlo ver.
 
-Existen técnicas que permiten devolver **el resultado de la consulta en el propio error**. La más simple es **provocar errores de conversión o *cast*** que indiquen que el resultado parcial, ya procesado por el DBMS, no es convertible. Por ejemplo, la siguiente línea intenta convertir a númerico un *string* que debería tener la versión del DBMS:
+Existen técnicas que permiten devolver **el resultado de la consulta en el propio error**. La más simple es **provocar errores de conversión o *cast*** que indiquen que el resultado parcial, ya procesado por el DBMS, no es convertible. Por ejemplo, la siguiente línea intenta convertir a númerico un *string* complejo que debería tener la versión del DBMS:
 
 ``` sql 
 1=convert(int,@@version)--
