@@ -24,7 +24,7 @@ Al ingresar al laboratorio se muestra una página principal con una lista de tex
 
 ![Home page](/test-page/assets/classic_ex_1.png)
 
-Al hacer click en uno de los botones, por ejemplo "Pets", la página se recarga y la ruta en la URL cambia a `/filter?category=Pets`. Por la sugerencia de la consigna es conveniente probar inyectar en este parámetro de filtro `category` como se vio en las [técnicas de detección](detection.md). Agregar una comilla simple `'` al final de `Pets` resulta en un error del servidor:
+Al hacer click en uno de los botones, por ejemplo "Pets", la página se recarga y la ruta en la URL cambia a `/filter?category=Pets`. Por la sugerencia de la consigna es conveniente probar inyectar en este parámetro de filtro `category` como se vio en las [técnicas de detección](/test-page/detection). Agregar una comilla simple `'` al final de `Pets` resulta en un error del servidor:
 
 ![Internal Server Error](/test-page/assets/classic_ex_2.png)
 
