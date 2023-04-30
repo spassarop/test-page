@@ -15,7 +15,7 @@ Estas son algunas técnicas de detección manual, que implican enviar a la aplic
 - Los distintos caracteres de **comillas** ya sean la **comilla simple** (`'`) o **comillas dobles** (`"`) en busca de errores o cambios de comportamiento.
 - **Condiciones lógicas** como `OR 1=1` y `OR 1=2` buscando diferencias en las respuestas.
 - Contenido con sintaxis SQL que resulte en **demoras** controladas (ver el punto de inyecciones ciegas).
-- Contenido diseñado para disparar **interacciones de red** fuera de banda (*out-of-band*), que son ejecutadas dentro de la consulta SQL, que pueden ser monitorearas con un servicio que está alerta en caso de recibir tal pedido de interacción. Implica tener infraestructura preparada (ver el punto de inyecciones ciegas).
+- Contenido diseñado para disparar **interacciones de red** fuera de banda (*out-of-band*), que son ejecutadas dentro de la consulta SQL, que pueden ser monitoreadas con un servicio que está alerta en caso de recibir tal pedido de interacción. Implica tener infraestructura preparada (ver el punto de inyecciones ciegas).
 
 Si se tiene acceso al código fuente, además de poder revisarlo manualmente, existen herramientas de **análisis estático** que ayudan a identificar potenciales inyecciones y que suelen automatizarse como parte de procesos de integración continua.
 

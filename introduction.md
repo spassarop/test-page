@@ -54,7 +54,7 @@ try {
 ...
 ```
 
-¿Por qué esta implementación es insegura? El parámetro `category` es obtenido directamente del *request* (o pedido HTTP) y, sin ningún tratamiento previo, es insertado **en la estructura** de la consulta. Esto permite que un usuario pueda alterar la consulta a partir del **punto de inyección** (valor de categoría) y afectar desde allí en adelante. En otras palabras, el motor de base de datos que interpreta la consulta tomará una estructura manipulada y retornará a la aplicación (y luego al usuario) información que no era la inicialmente esperaba.
+¿Por qué esta implementación es insegura? El parámetro `category` es obtenido directamente del *request* (o pedido HTTP) y, sin ningún tratamiento previo, es insertado **en la estructura** de la consulta. Esto permite que un usuario pueda alterar la consulta a partir del **punto de inyección** (valor de categoría) y afectar desde allí en adelante. En otras palabras, el motor de base de datos que interpreta la consulta tomará una estructura manipulada y retornará a la aplicación (y luego al usuario) información que no era la inicialmente esperada.
 
 Basándose en la implementación de ejemplo, un atacante podría acceder a la siguiente URL:
 
