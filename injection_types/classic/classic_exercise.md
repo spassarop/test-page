@@ -16,7 +16,7 @@ Este laboratorio contiene una vulnerabilidad de inyección de SQL en el filtro d
 
 La base de datos contiene una tabla diferente llamada `users`, con columnas llamadas `username` y `password`.
 
-Para resolver el laboratorio, obtener el usuario y contraseña del usuario administrador e iniciar sesión con estas credenciales.
+Para resolver el laboratorio, se debe obtener el usuario y contraseña del usuario administrador e iniciar sesión con estas credenciales.
 
 ## Resolución manual
 
@@ -62,7 +62,7 @@ En las filas resultantes figuran los productos junto con las credenciales por te
 
 ## Resolución con `sqlmap`
 
-La herramienta `sqlmap` condensa variadas técnicas de ataque para SQLi contemplando distintas versiones de DBMS, transformaciones de los *payloads*, heurísticas para tomar decisiones y más.
+La herramienta `sqlmap` condensa variadas técnicas de ataque para SQLi contemplando distintas versiones de DBMSs, transformaciones de los *payloads*, heurísticas para tomar decisiones y más.
 
 En este laboratorio, basta indicarle a `sqlmap` (por comando instalado o su *script* de Python) cual es la URL objetivo y el punto de inyección (parámetro). Una ejecución que lleva al mismo resultado sería la siguiente:
 

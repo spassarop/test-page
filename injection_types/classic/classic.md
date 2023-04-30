@@ -10,7 +10,7 @@ has_children: true
 
 Existen muchas variantes donde afectar en un punto de inyección cambia los resultados, por ejemplo en un **nombre de columna o las condiciones** de la cláusula `WHERE`. Esto extrae datos no previstos por la aplicación dentro de la tabla de la consulta original.
 
-Sin embargo, cuando se quiere obtener información en masa y de otras partes de la base de datos hay técnicas efectivas que se adaptan. La predominante se da con ataques de `UNION`.
+Sin embargo, cuando se quiere obtener información en masa y de otras partes de la base de datos, hay técnicas efectivas que se adaptan. La predominante se da con ataques que utilizan el operador `UNION`.
 
 ## Introducción a ataques UNION
 
@@ -122,7 +122,7 @@ Suponiendo un escenario donde el `UNION` admite **una sola columna** de tipo tex
 ' UNION SELECT username || '~' || password FROM users--
 ```
 
-Esto devuelve **una columna** con el valor de dos, separando con el caracter `~` para distinguir comienzo y fin. El operador `||` es la concatenación. Como referencia de operadores válidos (puede diferir en versiones):
+Esto devuelve **una columna** con el contenido de dos, separando con el caracter `~` para distinguir comienzo y fin. El operador `||` es la concatenación. Como referencia de operadores válidos (puede diferir en versiones):
 
 | Oracle, PostgreSQL | `'foo'||'bar'` |
 | SQL Server | `'foo'+'bar'` |

@@ -10,4 +10,4 @@ has_children: true
 
 A diferencia de las inyecciones SQL tradicionales, la inyección SQL ciega no devuelve información directamente al atacante, sino que utiliza técnicas de prueba y error para determinar la existencia de una vulnerabilidad y recopilar información.
 
-Hay varios tipos de inyección SQL ciega, entre estos podemos nombrar: Con respuestas condicionales, Basada en error, Basada en tiempo y fuera de banda.
+Hay varios tipos de inyección SQL ciega, entre estos podemos nombrar: con respuestas condicionales, basada en error, basada en tiempo y fuera de banda.
