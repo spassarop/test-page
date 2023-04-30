@@ -122,7 +122,7 @@ Suponiendo un escenario donde el `UNION` admite **una sola columna** de tipo tex
 ' UNION SELECT username || '~' || password FROM users--
 ```
 
-Esto devuelve **una columna** con el contenido de dos, separando con el caracter `~` para distinguir comienzo y fin. El operador `||` es la concatenación. Como referencia de operadores válidos (puede diferir en versiones):
+Esto devuelve **una columna** con el contenido de dos, separando con el caracter `~` para distinguir comienzo y fin de cada una. El operador `||` es la concatenación. Como referencia de operadores válidos (puede diferir en versiones):
 
 | Oracle, PostgreSQL | `'foo'||'bar'` |
 | SQL Server | `'foo'+'bar'` |

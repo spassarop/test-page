@@ -76,7 +76,7 @@ SELECT * FROM products WHERE category = 'Garden'
 
 Esta es la base de la que derivan todos los tipos de inyección, que varían según la **posición** del punto de inyección, **validaciones** aplicadas, la **tecnología** del motor de base de datos y demás factores. Los métodos de prevención se describen en la sección [Cómo prevenir las SQLi](/test-page/prevention).
 
-**Nota**: Los comentarios de SQL varían según el motor de base de datos, algas opciones son:
+**Nota**: Los comentarios de SQL varían según el motor de base de datos, algunas opciones son:
 
 | Oracle | `--comentario` |
 | SQL Server | `--comentario` <br> `/*comentario*/` |
