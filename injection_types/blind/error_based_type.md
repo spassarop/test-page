@@ -37,9 +37,9 @@ Información básica sobre variantes de sintaxis para generar errores condiciona
 
 La sintaxis no siempre va a ser tan directa de aplicar y la interpretación de algunos paréntesis o condiciones de error pueden cambiar para un mismo DBMS en diferentes versiones.
 
-## Hacer ver al ciego
+## Hacer ver a la ciega
 
-En una inyección ciega, extraer contenido por deducciones y errores es parecido a decirle al oído del ciego cómo se ve el resultado. Pero mejor es hacerlo ver.
+En una inyección ciega, extraer contenido por deducciones y errores es parecido a decirle al oído a la ciega cómo se ve el resultado. Pero mejor es hacerla ver.
 
 Existen técnicas que permiten devolver **el resultado de la consulta en el propio error**. La más simple es **provocar errores de conversión o *cast*** que indiquen que el resultado parcial, ya procesado por el DBMS, no es convertible. Por ejemplo, la siguiente línea intenta convertir a númerico un *string* complejo que debería tener la versión del DBMS:
 

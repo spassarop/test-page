@@ -3,7 +3,7 @@ layout: default
 title: Web Application Firewall
 permalink: /prevention/additional_defenses/waf/
 parent: Defensas adicionales
-grand_parent: XYZ. Cómo prevenir las SQLi
+grand_parent: 5. Cómo prevenir las SQLi
 nav_order: 2
 ---
 

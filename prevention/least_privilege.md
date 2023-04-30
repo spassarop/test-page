@@ -3,7 +3,7 @@ layout: default
 title: Menor privilegio
 permalink: /prevention/additional_defenses/least_privilege/
 parent: Defensas adicionales
-grand_parent: XYZ. Cómo prevenir las SQLi
+grand_parent: 5. Cómo prevenir las SQLi
 nav_order: 1
 ---
 

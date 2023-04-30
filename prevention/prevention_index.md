@@ -1,6 +1,6 @@
 ---
 layout: default
-title: XYZ. Cómo prevenir las SQLi
+title: 5. Cómo prevenir las SQLi
 permalink: /prevention/
 has_children: true
 nav_order: 10

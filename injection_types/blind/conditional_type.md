@@ -37,7 +37,7 @@ En la primera, si se usa un `TrackingId` válido al inicio, se debería observar
 Suponiendo entonces que existe una tabla de usuarios con las columnas `username` y `password`, se quiere conocer la contraseña de alguno de ellos, sabiendo de antemano un `username`. Se puede determinar su contraseña con una serie de consultas **para verificar un caracter a la vez**:
 
 ```
-xyz' AND SUBSTRING(
+…Tj4' AND SUBSTRING(
     (SELECT Password FROM Users WHERE Username = 'Jhon'), 1, 1) = 's
 ```
 
@@ -46,7 +46,7 @@ Esta consulta retorna verdadero **si el primer caracter** de la contraseña del 
 Sería cuestión de **automatizar las consultas** para probar las **diferentes combinaciones** hasta determinar la contraseña del usuario. Para automatizar este tipo de consultas es útil **identificar la cantidad de caracteres** que tiene el *string* objetivo (en este caso la contraseña), por ejemplo con la siguiente consulta base:
 
 ```
-xyz' AND LENGTH(
+…Tj4' AND LENGTH(
     (SELECT Password FROM Users WHERE Username = 'Jhon')) > 8
 ```
 

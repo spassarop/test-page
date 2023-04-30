@@ -3,7 +3,7 @@ layout: default
 title: Opción de defensa 4
 permalink: /prevention/primary_defenses/defense_4/
 parent: Defensas primarias
-grand_parent: XYZ. Cómo prevenir las SQLi
+grand_parent: 5. Cómo prevenir las SQLi
 nav_order: 4
 ---
 
