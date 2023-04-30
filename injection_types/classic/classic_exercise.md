@@ -16,7 +16,7 @@ Este laboratorio contiene una vulnerabilidad de inyección de SQL en el filtro d
 
 La base de datos contiene una tabla diferente llamada `users`, con columnas llamadas `username` y `password`.
 
-Para resolver el laboratorio, se debe obtener el usuario y contraseña del usuario administrador e iniciar sesión con estas credenciales.
+Para resolver el laboratorio, se debe obtener el usuario y contraseña del usuario `administrator` e iniciar sesión con estas credenciales.
 
 ## Resolución manual
 
