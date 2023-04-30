@@ -7,7 +7,7 @@ parent: 4.2 Basadas en error
 grand_parent: 4. Inyecciones ciegas
 ---
 
-# Ejercicio práctico de inyección basada en error
+# Ejercicio práctico de inyección ciega basada en error
 
 > Ejercicio basado en el laboratorio "Lab: Blind SQL injection with conditional errors" de Web Security Academy (PortSwigger).
 
@@ -45,7 +45,7 @@ Todas ellas resultan en error cuando alguna sintaxis debería haber funcionado p
 
 ![Payload 3](/test-page/assets/error_ex_3.png)
 
-Para terminar de comprobar que el procesamiento se da a nivel de SQL en el DBMS, se puede incluir una tabla que no exista de forma que la consulta sea sintácticamente válida pero en el DBMS provoque un error por la referencia inexsitente. Por ejemplo con `yfjurW4iPlPPGgRH'||(SELECT '' FROM no-existe)||'`.
+Para terminar de comprobar que el procesamiento se da a nivel de SQL en el DBMS, se puede incluir una tabla que no exista de forma que la consulta sea sintácticamente válida pero en el DBMS provoque un error por la referencia inexistente. Por ejemplo con `yfjurW4iPlPPGgRH'||(SELECT '' FROM no-existe)||'`.
 
 Desde este punto es posible incluir condiciones complejas para Oracle que en un caso retornen un texto y en otro generen un error, por ejemplo con conversiones inválidas o división por 0:
 
@@ -97,5 +97,3 @@ Adaptar esto al *payload* en *Requester* permite utilizar nuevamente la herramie
 Iniciar el ataque con ambas posiciones y sus respectivos *payloads*. Para más velocidad se puede aumentar el número de hilos en la pestaña `Options` de *Fuzzer*. Nuevamente ordenando por código HTTP se observan las combinaciones de *payloads* válidos, revelando así la posición de cada caracter de la contraseña que debe ser ensamblada. Se puede exportar un CSV para pos-procesamiento.
 
 ![Fuzzer 5](/test-page/assets/error_ex_9.png)
-
-## Resolución con `sqlmap`
