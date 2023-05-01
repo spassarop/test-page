@@ -41,7 +41,7 @@ La sintaxis no siempre va a ser tan directa de aplicar y la interpretación de a
 
 En una inyección ciega, extraer contenido por deducciones y errores es parecido a decirle al oído a la ciega cómo se ve el resultado. Pero mejor es hacerla ver.
 
-Existen técnicas que permiten devolver **el resultado de la consulta en el propio error**. La más simple es **provocar errores de conversión o *cast*** que indiquen que el resultado parcial, ya procesado por el DBMS, no es convertible. Por ejemplo, la siguiente línea intenta convertir a númerico un *string* complejo que debería tener la versión del DBMS:
+Existen técnicas que permiten devolver **el resultado de la consulta en el propio error**. La más simple es **provocar errores de conversión o *cast*** que indiquen que el resultado parcial, ya procesado por el DBMS, no es convertible. Por ejemplo, la siguiente línea intenta convertir a numérico un *string* complejo que debería tener la versión del DBMS:
 
 ``` sql 
 1=convert(int,@@version)--
@@ -63,4 +63,4 @@ Standard Edition (64-bit) on Windows NT 6.2 X64 (Build 9200: ) (Hypervisor)" to 
 int. (severity 16 in D:\something\web\STD...\id.php on line...
 ```
 
-Si esto sucede, no hay más ceguera. Es cuestión de extraer el resultado directamente como en una inyección clásica con datos visbles.
+Si esto sucede, no hay más ceguera. Es cuestión de extraer el resultado directamente como en una inyección clásica con datos visibles.

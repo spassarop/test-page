@@ -52,7 +52,7 @@ Esta es una buena base para las siguientes consultas, donde la lista de condicio
 SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)=1
 ```
 
-Aplicando este fragmento de SQL en el punto de inyección, el resultado no tendrá el mensaje de bienvenida porque ya es poco probable que la contraseña sea tan reducida, pero variando el número eventualmente concidirá con el largo real para ese registro, devolviendo el mensaje de biendenida. Este proceso puede hacerse manualmente pero es más veloz con las herramienta **Intruder** o la extensión **Turbo Intruder** de Burp Suite. Como Burp Suite Community Edition provee ataques más lentos para **Intruder**, es preferible utilizar directamente **Turbo Intruder** o **Fuzzer** de OWASP ZAP (como se muestra en la solución del ejercicio de inyecciones ciegas basdas en error). Dado el siguiente pedido en *Repeater*:
+Aplicando este fragmento de SQL en el punto de inyección, el resultado no tendrá el mensaje de bienvenida porque ya es poco probable que la contraseña sea tan reducida, pero variando el número eventualmente coincidirá con el largo real para ese registro, devolviendo el mensaje de bienvenida. Este proceso puede hacerse manualmente pero es más veloz con las herramienta **Intruder** o la extensión **Turbo Intruder** de Burp Suite. Como Burp Suite Community Edition provee ataques más lentos para **Intruder**, es preferible utilizar directamente **Turbo Intruder** o **Fuzzer** de OWASP ZAP (como se muestra en la solución del ejercicio de inyecciones ciegas basdas en error). Dado el siguiente pedido en *Repeater*:
 
 ![Repeater 2](/test-page/assets/conditional_ex_3.png)
 
@@ -93,7 +93,7 @@ Conociendo el largo exacto de la contraseña la consulta puede evolucionar a adi
 
 Adaptar esto al *payload* en *Repeater* permite utilizar nuevamente la herramienta *Turbo Intruder* para probar todas las combinaciones de caracteres y posiciones del *substring* (de 1 a 20). Ahora las posiciones de reemplazo `%s` son dos, una en el primer número de `SUBSTRING` y la otra es sobre la letra `a` del ejemplo.
 
-El código cambia ligeramente. Primero dentro de las varias formas de implemetarlo, se declara una lista de los caracteres imprimibles transformando cada número de ASCII en su versión de caracter:
+El código cambia ligeramente. Primero dentro de las varias formas de implementarlo, se declara una lista de los caracteres imprimibles transformando cada número de ASCII en su versión de caracter:
 
 ```python
 printable_chars = [chr(i) for i in range(32,127)]

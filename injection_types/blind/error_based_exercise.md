@@ -41,7 +41,7 @@ yfjurW4iPlPPGgRH'||(SELECT '')||'
 yfjurW4iPlPPGgRH' (SELECT '') '
 ```
 
-Todas ellas resultan en error cuando alguna sintaxis debería haber funcionado para el DBMS en cuestión. Sin embargo, si se tratara de Oracle se estaría obligado a incluir la cláusula `FROM`, por lo que se puede probar con la tabla `DUAL` como se explicó en la sección [Valores NULL de inyecciones clásicas](/test-page/injection_types/classic/#valores-null). Esto deja de provocar error, indicando sintaxis válida:
+Todas ellas resultan en error cuando alguna sintaxis debería haber funcionado para el DBMS en cuestión. Sin embargo, si se tratara de Oracle se estaría obligado a incluir la cláusula `FROM`, por lo que se puede probar con la tabla `DUAL` como se explicó en la sección [Valores NULL de inyecciones clásicas](/test-page/injection_types/classic#valores-null). Esto deja de provocar error, indicando sintaxis válida:
 
 ![Payload 3](/test-page/assets/error_ex_3.png)
 

@@ -26,7 +26,7 @@ Para resolver el laboratorio, obtener el usuario y contraseña del usuario `admi
 
 Luego de un primer acceso a la aplicación y por sugerencia de la consigna, analizando las cookies se observa que figura una llamada `TrackingId` con un valor alfanumérico. Para modificarla en pedidos siguientes es pertinente usar un proxy de ataque como OWASP ZAP para practicidad.
 
-Inicialmente podemos validar la existencia de la vulnerabilidad de cualquiera de las formas mencionadas en [4.3 Basadas en tiempo](/test-page/injection_types/blind/time_based_type/time_based_exercise) para cada tipo de base. Por lo que modificando `TrackingId` de la siguiente manera se puede validar la que resulta válida:
+Inicialmente podemos validar la existencia de la vulnerabilidad de cualquiera de las formas mencionadas en [4.3 Basadas en tiempo](/test-page/injection_types/blind/time_based_type) para cada tipo de base. Por lo que modificando `TrackingId` de la siguiente manera se puede validar la que resulta válida:
 
 ```
 TrackingId=ggg'||(SELECT pg_sleep(5))--
@@ -96,7 +96,7 @@ Para este ejemplo se tuvo en cuenta que la contraseña del administrador solo po
 
 ## Optimización con conversión binaria
 
-La desventaja de iterar por lista de caracteres es que requiere una alta cantidad de consultas para probar todas las  posibles combinaciones, si bien se realiza mediante un *script* para automatizarlo, para optimizar la cantidad de consultas, es conveniente apoyarse en los consejos de optimización descritos en la sección [4.1 Inyeccion SQL ciega con respuestas condicionales](/test-page/injection_types/blind/conditional_type#optimizaciones).
+La desventaja de iterar por lista de caracteres es que requiere una alta cantidad de consultas para probar todas las  posibles combinaciones, si bien se realiza mediante un *script* para automatizarlo, para optimizar la cantidad de consultas, es conveniente apoyarse en los consejos de optimización descritos en la sección [4.1 Inyección SQL ciega con respuestas condicionales](/test-page/injection_types/blind/conditional_type#optimizaciones).
 
 La optimización de utilizar una conversión a binario del caracter a adivinar implica convertirlo primero a su representación numérica (con `ASCII()`), luego a *byte* con un *cast* (`::bit(8)`) y finalmente tomar bit por bit de ese byte resultante. Cada bit se compara con `0` o `1` y el resultado se acumula hasta completar 8 pedidos. Completado este proceso, se obtiene un byte que es directamente convertible a caracter.
 
