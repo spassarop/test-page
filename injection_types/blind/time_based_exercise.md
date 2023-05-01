@@ -94,7 +94,6 @@ print("\n[+] Password: %s" % (password))
 
 Para este ejemplo se tuvo en cuenta que la contraseña del administrador solo posee letras minúsculas y números. En un caso diferente, habría que incluir dentro de la lista `characters` todos los caracteres posibles para la contraseña (letras mayúsculas y caracteres especiales).
 
-
 ## Optimización con conversión binaria
 
 La desventaja de iterar por lista de caracteres es que requiere una alta cantidad de consultas para probar todas las  posibles combinaciones, si bien se realiza mediante un *script* para automatizarlo, para optimizar la cantidad de consultas, es conveniente apoyarse en los consejos de optimización descritos en la sección [4.1 Inyeccion SQL ciega con respuestas condicionales](/test-page/injection_types/blind/conditional_type#optimizaciones).

