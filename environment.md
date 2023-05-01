@@ -15,4 +15,4 @@ Para los laboratorios se utilizan las siguientes herramientas:
 - [Python 3.X](https://www.python.org/downloads/).
 - [sqlmap](https://sqlmap.org/).
 
-Las prácticas son ejercicios públicos y gratuitos del tema "SQL injection" de [Web Security Academy de PortSwigger](https://portswigger.net/web-security/sql-injection). **Es necesario crearse una cuenta en la web para acceder a las instancias de laboratorio**. Para crearse una cuenta se puede ir [aqui](https://portswigger.net/users/register).
+Las prácticas son ejercicios públicos y gratuitos del tema "SQL injection" de [Web Security Academy de PortSwigger](https://portswigger.net/web-security/sql-injection). **Es necesario crearse una cuenta en la web para acceder a las instancias de laboratorio**. Para crearse una cuenta se puede ir [aquí](https://portswigger.net/users/register).
